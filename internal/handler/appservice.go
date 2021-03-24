@@ -34,11 +34,11 @@ var data = make(map[string]string)
 
 const AppServiceConfigurableFileName = "configuration.toml"
 
-func HeartBeatAppService(w http.ResponseWriter, r *http.Request){
+func HeartBeatAppService(w http.ResponseWriter, r *http.Request) {
 	_, err := initRegistryClientByServiceKey(configs.RegistryConf.ServiceVersion, false)
-	if err != nil{
+	if err != nil {
 		w.Write([]byte(""))
-	}else{
+	} else {
 		w.Write([]byte("pong"))
 	}
 }
@@ -64,6 +64,7 @@ func ListAppServicesProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	jsonData, err := json.Marshal(*actual)
+	fmt.Printf(string(jsonData))
 	if err != nil {
 		log.Printf(err.Error())
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
@@ -147,7 +148,7 @@ func ReceiveDataPostJSON(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	err := r.ParseForm()
 	if err != nil {
-		log.Fatal("parse form error ",err)
+		log.Fatal("parse form error ", err)
 	}
 	formData := make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&formData)
@@ -157,7 +158,7 @@ func ReceiveDataPostJSON(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "InternalServerError", http.StatusInternalServerError)
 		return
 	}
-	formatTimeStr:=time.Unix(time.Now().Unix(),0).Format("03:04:05")
+	formatTimeStr := time.Unix(time.Now().Unix(), 0).Format("03:04:05")
 	data["time"] = formatTimeStr
 	data["currentData"] = string(jsonData)
 }
@@ -165,14 +166,14 @@ func ReceiveDataPostJSON(w http.ResponseWriter, r *http.Request) {
 func ReceiveDataPostXML(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	con, _ := ioutil.ReadAll(r.Body)
-	formatTimeStr:=time.Unix(time.Now().Unix(),0).Format("03:04:05")
+	formatTimeStr := time.Unix(time.Now().Unix(), 0).Format("03:04:05")
 	data["time"] = formatTimeStr
 	data["currentData"] = string(con)
 }
 
 func CurrentData(w http.ResponseWriter, r *http.Request) {
-	macon,_ :=json.Marshal(data)
-	mString :=string(macon)
+	macon, _ := json.Marshal(data)
+	mString := string(macon)
 	io.WriteString(w, mString)
 }
 

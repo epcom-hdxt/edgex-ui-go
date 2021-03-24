@@ -1,4 +1,4 @@
-# edgex-ui-go
+# edgex-ui-go www
 
 ## Use and Purpose
 The EdgeX UI is for **demonstration and developer use** to manage and monitor a single instance of EdgeX Foundry (unsecured).  Specifically, it can:
