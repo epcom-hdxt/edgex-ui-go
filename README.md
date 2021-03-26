@@ -1,4 +1,4 @@
-# edgex-ui-go www
+# edgex-ui-go www mac
 
 ## Use and Purpose
 The EdgeX UI is for **demonstration and developer use** to manage and monitor a single instance of EdgeX Foundry (unsecured).  Specifically, it can:
