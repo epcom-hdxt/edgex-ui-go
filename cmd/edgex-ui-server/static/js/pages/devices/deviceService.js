@@ -174,7 +174,7 @@ orgEdgexFoundry.deviceService = (function(){
             }
         ];
     }
-
+ 
     DeviceService.prototype = {
         constructor: DeviceService,
         loadDeviceService: null,
