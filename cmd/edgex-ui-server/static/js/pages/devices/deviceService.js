@@ -88,6 +88,16 @@ orgEdgexFoundry.deviceService = (function(){
                         'Hint': '(required)'
                     },
                     {
+                        'Key': 'IdleTimeout',
+                        'Value': '8000',
+                        'Hint': '(required)'
+                    },
+                    {
+                        'Key': 'Timeout',
+                        'Value': '5000',
+                        'Hint': '(required)'
+                    },
+                    {
                         'Key': 'UnitID',
                         'Value': '1',
                         'Hint': '(required)'
@@ -105,7 +115,7 @@ orgEdgexFoundry.deviceService = (function(){
                     },
                     {
                         'Key': 'BaudRate',
-                        'Value': '19200',
+                        'Value': '9600',
                         'Hint': '(required)'
                     },
                     {
@@ -119,9 +129,19 @@ orgEdgexFoundry.deviceService = (function(){
                         'Hint': '(required)'
                     },
                     {
+                        'Key': 'Timeout',
+                        'Value': '500',
+                        'Hint': '(required)'
+                    },
+                    {
                         'Key': 'Parity',
                         'Value': 'N',
                         'Hint': '(required,N - None, O - Odd, E - Even)'
+                    },
+                    {
+                        'Key': 'RS485Enabled',
+                        'Value': 'false',
+                        'Hint': '(required)'
                     },
                     {
                         'Key': 'UnitID',
@@ -154,7 +174,7 @@ orgEdgexFoundry.deviceService = (function(){
             }
         ];
     }
-
+ 
     DeviceService.prototype = {
         constructor: DeviceService,
         loadDeviceService: null,

@@ -3,6 +3,7 @@ module github.com/edgexfoundry/edgex-ui-go
 go 1.15
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize v1.4.1 // indirect
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.2.0
 	github.com/edgexfoundry/go-mod-registry v0.1.11
