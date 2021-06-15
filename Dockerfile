@@ -31,7 +31,12 @@ RUN sed -e 's/dl-cdn[.]alpinelinux.org/nl.alpinelinux.org/g' -i~ /etc/apk/reposi
 
 RUN apk add --update --no-cache ${ALPINE_PKG_BASE} ${ALPINE_PKG_EXTRA}
 
-ENV GO111MODULE=on
+ENV CGO_ENABLED=0 \
+#    GO_EXTRA_BUILD_ARGS="-a -installsuffix cgo" \
+    GOOS=linux \
+  #  GOARCH=arm64 \
+    GOPROXY=https://goproxy.cn
+
 WORKDIR /go/src/github.com/edgexfoundry/edgex-ui-go
 
 

@@ -6,6 +6,7 @@ require (
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.2.0
 	github.com/edgexfoundry/go-mod-registry v0.1.11
+	github.com/gomodule/redigo v1.8.5
 	github.com/gorilla/mux v1.7.1
 	github.com/gorilla/websocket v1.4.0
 	github.com/hashicorp/consul/api v1.4.0 // indirect

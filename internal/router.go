@@ -38,6 +38,11 @@ func InitRestRoutes() http.Handler {
 	s.HandleFunc("/profile/download", handler.DowloadProfile).Methods(http.MethodGet)
 	s.HandleFunc("/profile/add", handler.AddProfile).Methods(http.MethodPost)
 
+	//增加定时清理redis Event的方法
+	s.HandleFunc("/redis/scrubEvent", handler.ScrubEventReadingAndDel).Methods(http.MethodPost)
+	//增加定时清理redis Reading的方法
+	s.HandleFunc("/redis/scrubReading", handler.ScrubReadingAndDel).Methods(http.MethodPost)
+
 	s.HandleFunc("/appservice/deploy/servicekey/{servicekey}", handler.DeployConfigurableProfile).Methods(http.MethodPost)
 	s.HandleFunc("/appservice/download/servicekey/{servicekey}", handler.DownloadConfigurableProfile).Methods(http.MethodGet)
 	s.HandleFunc("/appservice/list", handler.ListAppServicesProfile).Methods(http.MethodGet)
