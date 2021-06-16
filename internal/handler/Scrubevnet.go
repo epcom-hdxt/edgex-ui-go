@@ -9,7 +9,6 @@
 package handler
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -27,8 +26,8 @@ import (
 func ScrubEventReadingAndDel(w http.ResponseWriter, r *http.Request) {
 
 	//TODO 等孩子睡了再书写
-	fmt.Print(1)
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	// fmt.Print(1)
+	conn, err := redis.Dial("tcp", "redis:6379")
 	if err != nil {
 		log.Printf(err.Error())
 	}

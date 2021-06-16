@@ -27,12 +27,12 @@ func ScrubReadingAndDel(w http.ResponseWriter, r *http.Request) {
 
 	//TODO 等孩子睡了再书写
 	fmt.Print(1)
-	conn, err := redis.Dial("tcp", "127.0.0.1:6379")
+	conn, err := redis.Dial("tcp", "redis:6379")
 	if err != nil {
-		panic(err)
+		log.Printf(err.Error())
 	}
 	defer conn.Close()
-	fmt.Print("conn ok!")
+	// fmt.Print("conn ok!")
 
 	conn.Do("DEL", "reading:created") //删除reading:created
 	conn.Do("DEL", "reading")         //删除reading
