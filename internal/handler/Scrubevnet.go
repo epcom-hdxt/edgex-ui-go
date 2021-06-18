@@ -51,12 +51,21 @@ func ScrubEventReadingAndDel(w http.ResponseWriter, r *http.Request) {
 			// fmt.Println("Get " + valset[i] + " 长度:" + strconv.Itoa(len(set_map)))
 		}
 
+		var keyarr = make([]string, len(set_map))
+		num := 0
 		for setmap := range set_map {
-			//fmt.Printf("set: %v %v\n", setmap, set_map[setmap])
+			// fmt.Printf("set: %v %v\n", setmap, set_map[setmap])
 			// fmt.Println(conn.Do("DEL", setmap))
-			conn.Do("DEL", setmap) //删除set内部 key
+			keyarr[num] = setmap
+			num++
+			// conn.Do("DEL", setmap) //删除set内部 key
 		}
-		conn.Do("DEL", valset[i]) //删除set本身
+		vals := make([]interface{}, len(keyarr))
+		for i, v := range keyarr {
+			vals[i] = v
+		}
+		log.Println(conn.Do("DEL", vals...)) //删除set内部 key
+		conn.Do("DEL", valset[i])            //删除set本身
 		// fmt.Println("删除" + valset[i] + "ok ----" + "第" + strconv.Itoa(i) + "个")
 
 	}
@@ -75,5 +84,32 @@ func ScrubEventReadingAndDel(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	log.Println("redis scrub event and delete success!")
+
+	conn.Do("DEL", "reading:created") //删除reading:created
+	conn.Do("DEL", "reading")         //删除reading
+
+	//循环删除reading:device*
+	reading_device, err := redis.Strings(conn.Do("KEYS", "reading:device*"))
+	if err != nil {
+		log.Printf(err.Error())
+	} else {
+		for i, _ := range reading_device {
+			// fmt.Println(reading_device[i])
+			conn.Do("DEL", reading_device[i])
+		}
+	}
+
+	//循环删除reading:name*
+	reading_name, err := redis.Strings(conn.Do("KEYS", "reading:name*"))
+	if err != nil {
+		// fmt.Println("redis get event_device failed:", err)
+		log.Printf(err.Error())
+	} else {
+		for i, _ := range reading_name {
+			// fmt.Println(reading_name[i])
+			conn.Do("DEL", reading_name[i])
+		}
+	}
+	log.Println("redis scrub readingss and delete success!")
 	w.Write([]byte(nil))
 }
